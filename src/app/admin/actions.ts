@@ -104,3 +104,31 @@ export async function updateBlock(blockId: string, data: { title: string; url: s
   revalidatePath('/admin')
   return { success: true }
 }
+
+export async function reorderBlocks(orderedIds: string[]) {
+  const supabase = await createClient()
+  
+  // 1. Verificar usuario
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'No autorizado' }
+
+  // 2. Actualizar posición de cada bloque
+  const updates = orderedIds.map((id, index) => 
+    supabase
+      .from('blocks')
+      .update({ position: index })
+      .eq('id', id)
+      .eq('user_id', user.id)
+  )
+
+  const results = await Promise.all(updates)
+  const hasError = results.some(r => r.error)
+
+  if (hasError) {
+    return { error: 'Error al reordenar los bloques' }
+  }
+
+  // 3. Refrescar la página
+  revalidatePath('/admin')
+  return { success: true }
+}

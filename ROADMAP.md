@@ -15,7 +15,7 @@
 - [x] **Delete Block:** Add capability to delete a block.
 - [x] **Edit Block:** Allow editing title/url of existing blocks.
 - [x] **Toast Notifications:** Add feedback (Success/Error messages) using `sonner` or `toast`.
-- [ ] **Drag & Drop:** Reorder blocks visually.
+- [x] **Drag & Drop:** Reorder blocks visually.
 - [x] **Loading States:** Disable buttons while submitting to prevent double clicks.
 
 ## 3. 🚀 Phase 3: Growth Features
