@@ -2,14 +2,13 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 
 export async function updateProfile(formData: FormData) {
   const supabase = await createClient()
   
   // 1. Verificar usuario
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return redirect('/login')
+  if (!user) return { error: 'No autorizado' }
 
   // 2. Obtener datos del form
   const fullName = formData.get('fullName') as string
@@ -29,7 +28,7 @@ export async function updateProfile(formData: FormData) {
 
     if (uploadError) {
       console.error('Error subiendo imagen:', uploadError)
-      // Podríamos retornar un error acá, pero sigamos para actualizar el texto
+      return { error: 'Error al subir la imagen' }
     } else {
       // Obtenemos la URL pública para guardarla en la BD
       const { data: { publicUrl } } = supabase.storage
@@ -41,7 +40,7 @@ export async function updateProfile(formData: FormData) {
   }
 
   // 4. Preparamos los datos a actualizar
-  const updates: any = {
+  const updates: Record<string, unknown> = {
     full_name: fullName,
     username: username,
     updated_at: new Date().toISOString(),
@@ -60,12 +59,13 @@ export async function updateProfile(formData: FormData) {
 
   if (error) {
     console.error(error)
-    return redirect('/admin/settings?error=true')
+    return { error: 'Error al actualizar el perfil' }
   }
 
   revalidatePath('/admin')
+  revalidatePath('/admin/settings')
   revalidatePath(`/${username}`) // Para que se vea en el perfil público
-  redirect('/admin')
+  return { success: true }
 }
 
 

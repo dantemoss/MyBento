@@ -2,16 +2,13 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 export async function signOut() {
   const supabase = await createClient()
   await supabase.auth.signOut()
   return redirect('/login')
 }
-
-import { revalidatePath } from 'next/cache' // <--- Agregá este import arriba de todo
-
-// ... (código anterior de signOut)
 
 export async function createBlock(formData: FormData) {
   const supabase = await createClient()
@@ -56,4 +53,54 @@ export async function incrementClick(blockId: string) {
         .update({ clicks: block.clicks + 1 })
         .eq('id', blockId)
   }
+}
+
+export async function deleteBlock(blockId: string) {
+  const supabase = await createClient()
+  
+  // 1. Verificar usuario
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'No autorizado' }
+
+  // 2. Borrar el bloque (solo si pertenece al usuario)
+  const { error } = await supabase
+    .from('blocks')
+    .delete()
+    .eq('id', blockId)
+    .eq('user_id', user.id)
+
+  if (error) {
+    return { error: 'Error al eliminar el bloque' }
+  }
+
+  // 3. Refrescar la página
+  revalidatePath('/admin')
+  return { success: true }
+}
+
+export async function updateBlock(blockId: string, data: { title: string; url: string; type: string }) {
+  const supabase = await createClient()
+  
+  // 1. Verificar usuario
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'No autorizado' }
+
+  // 2. Actualizar el bloque (solo si pertenece al usuario)
+  const { error } = await supabase
+    .from('blocks')
+    .update({
+      title: data.title,
+      url: data.url,
+      type: data.type,
+    })
+    .eq('id', blockId)
+    .eq('user_id', user.id)
+
+  if (error) {
+    return { error: 'Error al actualizar el bloque' }
+  }
+
+  // 3. Refrescar la página
+  revalidatePath('/admin')
+  return { success: true }
 }

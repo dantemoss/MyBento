@@ -1,8 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus, GripVertical, BarChart2 } from "lucide-react"; // Iconos lindos
+import { Plus, GripVertical, BarChart2 } from "lucide-react";
 import { CreateBlockBtn } from "@/components/create-block-btn";
+import { DeleteBlockBtn } from "@/components/delete-block-btn";
+import { EditBlockBtn } from "@/components/edit-block-btn";
 
 
 
@@ -43,12 +44,16 @@ export default async function AdminPage() {
 
         {/* Lista de Bloques (Cuando existan) */}
         {blocks?.map((block) => (
-          <Card key={block.id} className="bg-zinc-900 border-zinc-800 text-zinc-100 group hover:border-zinc-700 transition-colors cursor-pointer">
+          <Card key={block.id} className="bg-zinc-900 border-zinc-800 text-zinc-100 group hover:border-zinc-700 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-base font-medium truncate">
+              <CardTitle className="text-base font-medium truncate flex-1 mr-2">
                 {block.title || "Sin título"}
               </CardTitle>
-              <GripVertical className="w-4 h-4 text-zinc-600 group-hover:text-zinc-400" />
+              <div className="flex items-center gap-1">
+                <EditBlockBtn block={{ id: block.id, title: block.title || "", url: block.url || "", type: block.type }} />
+                <DeleteBlockBtn blockId={block.id} blockTitle={block.title || "Sin título"} />
+                <GripVertical className="w-4 h-4 text-zinc-600 group-hover:text-zinc-400 cursor-grab" />
+              </div>
             </CardHeader>
             <CardContent>
               <p className="text-xs text-zinc-500 font-mono truncate">
