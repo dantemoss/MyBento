@@ -1,17 +1,70 @@
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ExternalLink, Github, Youtube } from "lucide-react";
 import { BlockLink } from "@/components/block-link";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+
+// Generar metadata dinámica para SEO y OpenGraph
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ username: string }> 
+}): Promise<Metadata> {
+  const supabase = await createClient();
+  const { username } = await params;
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("full_name, avatar_url, username")
+    .eq("username", username)
+    .single();
+
+  if (!profile) {
+    return {
+      title: "Usuario no encontrado | MyBento",
+      description: "Este perfil no existe.",
+    };
+  }
+
+  const displayName = profile.full_name || `@${username}`;
+  const description = `Mirá los links de ${displayName} en MyBento`;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mybento.vercel.app";
+
+  return {
+    title: `${displayName} | MyBento`,
+    description,
+    openGraph: {
+      title: `${displayName} | MyBento`,
+      description,
+      url: `${siteUrl}/${username}`,
+      siteName: "MyBento",
+      type: "profile",
+      images: profile.avatar_url ? [
+        {
+          url: profile.avatar_url,
+          width: 400,
+          height: 400,
+          alt: `Avatar de ${displayName}`,
+        }
+      ] : [],
+    },
+    twitter: {
+      card: "summary",
+      title: `${displayName} | MyBento`,
+      description,
+      images: profile.avatar_url ? [profile.avatar_url] : [],
+    },
+  };
+}
+
 // Mapeo de iconos según el tipo de bloque
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   link: ExternalLink,
   github: Github,
   youtube: Youtube,
-  header: null, // Los headers no llevan icono
 };
 
 export default async function PublicProfilePage({ 

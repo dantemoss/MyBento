@@ -22,7 +22,7 @@
 - [x] **Security & Validation:** Input sanitization, password policies, error handling.
 - [x] **Social Login:** Google Auth.
 - [x] **Onboarding:** Username selection flow for new users.
-- [ ] **SEO:** OpenGraph tags for public profiles.
+- [x] **SEO:** OpenGraph tags for public profiles.
 
 ### 3.1 Better Analytics (Log-based System)
 - [ ] **Database Schema Shift:** Create `events` table in Supabase for log-based analytics. Fields: `id`, `block_id`, `created_at`, `browser`, `device_type`, `os`, `country` (optional).
