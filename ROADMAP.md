@@ -74,7 +74,7 @@
 
 ## 6. 🔮 Future Ideas
 - [ ] **Custom Domains:** Connect personal domains.
-- [ ] **QR Code Generator:** Generate QR for profile.
+- [x] **QR Code Generator:** Generate QR for profile.
 - [ ] **Scheduled Links:** Show/hide links by date.
 - [ ] **Password Protected Links:** Private links with password.
 - [ ] **Email Collection:** Capture visitor emails.

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { signOut } from "./actions";
 import Link from "next/link";
 import { Settings, ExternalLink } from "lucide-react";
+import { QRCodeBtn } from "@/components/qr-code-btn";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
@@ -46,6 +47,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               @{profile.username}
               <ExternalLink className="w-3 h-3" />
             </Link>
+
+            <QRCodeBtn username={profile.username} />
 
             <Link href="/admin/settings">
               <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white hover:bg-zinc-800">
