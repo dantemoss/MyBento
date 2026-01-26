@@ -53,6 +53,8 @@
 - [ ] **Pattern Backgrounds:** SVG patterns and textures.
 
 ### 4.4 Componentes Personalizables
+- [x] **Platform Detection:** Auto-detect platform from URL (20+ platforms supported).
+- [x] **Platform Icons:** SVG icons for all major platforms (YouTube, Spotify, Instagram, etc.).
 - [ ] **Icon Selector:** Choose icons per block (Lucide, custom upload).
 - [ ] **Custom Banners:** Header banner with custom image.
 - [ ] **Advanced Buttons:** Shadows, borders, hover animations.

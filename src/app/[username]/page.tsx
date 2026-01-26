@@ -1,7 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ExternalLink, Github, Youtube } from "lucide-react";
 import { BlockLink } from "@/components/block-link";
 import type { Metadata } from "next";
 
@@ -60,13 +59,6 @@ export async function generateMetadata({
   };
 }
 
-// Mapeo de iconos según el tipo de bloque
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  link: ExternalLink,
-  github: Github,
-  youtube: Youtube,
-};
-
 export default async function PublicProfilePage({ 
   params 
 }: { 
@@ -111,14 +103,12 @@ export default async function PublicProfilePage({
       </div>
 
       {/* LISTA DE BLOQUES */}
-      <div className="w-full max-w-md space-y-4">
+      <div className="w-full max-w-md space-y-3">
         {blocks?.map((block) => {
-          const Icon = iconMap[block.type] || ExternalLink;
-
           // Si es un Header (título separador)
           if (block.type === 'header') {
              return (
-                 <h3 key={block.id} className="text-zinc-500 text-xs font-bold uppercase tracking-widest text-center mt-6 mb-2">
+                 <h3 key={block.id} className="text-zinc-500 text-xs font-bold uppercase tracking-widest text-center mt-8 mb-2">
                      {block.title}
                  </h3>
              )
