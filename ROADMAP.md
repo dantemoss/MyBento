@@ -81,3 +81,11 @@
 - [ ] **Password Protected Links:** Private links with password.
 - [ ] **Email Collection:** Capture visitor emails.
 - [ ] **Integrations:** Spotify, YouTube, Instagram embeds.
+
+
+## Librerias de componentes posibles para usar: 
+https://tailark.com/ components
+https://skiper-ui.com components
+https://efferd.com components
+https://patterncraft.fun/?ref=shadway patterns
+https://magicui.design/docs/components/bento-grid bento-grid epic
