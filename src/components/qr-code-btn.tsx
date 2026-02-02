@@ -21,7 +21,7 @@ interface QRCodeBtnProps {
 export function QRCodeBtn({ username }: QRCodeBtnProps) {
   const [copied, setCopied] = useState(false)
   
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mybento.vercel.app"
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bion.vercel.app"
   const profileUrl = `${siteUrl}/${username}`
 
   function handleCopyLink() {
@@ -49,7 +49,7 @@ export function QRCodeBtn({ username }: QRCodeBtnProps) {
       const pngUrl = canvas.toDataURL("image/png")
       const downloadLink = document.createElement("a")
       downloadLink.href = pngUrl
-      downloadLink.download = `mybento-${username}-qr.png`
+      downloadLink.download = `bion-${username}-qr.png`
       downloadLink.click()
       
       toast.success("QR descargado")

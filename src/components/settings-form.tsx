@@ -86,7 +86,7 @@ export function SettingsForm({ profile }: SettingsFormProps) {
       <div className="space-y-2">
         <Label htmlFor="username">Nombre de Usuario</Label>
         <div className="relative">
-          <span className="absolute left-3 top-2.5 text-zinc-500 text-sm">mybento.vercel.app/</span>
+          <span className="absolute left-3 top-2.5 text-zinc-500 text-sm">bion.vercel.app/</span>
           <Input
             id="username"
             name="username"

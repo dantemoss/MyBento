@@ -46,7 +46,7 @@ export function OnboardingForm({ userEmail }: OnboardingFormProps) {
       <CardHeader>
         <CardTitle className="text-white">Elegí tu username</CardTitle>
         <CardDescription>
-          Este será tu link público: <span className="text-zinc-300">mybento.vercel.app/<span className="text-white font-medium">{username || "tu-username"}</span></span>
+          Este será tu link público: <span className="text-zinc-300">bion.vercel.app/<span className="text-white font-medium">{username || "tu-username"}</span></span>
         </CardDescription>
       </CardHeader>
       <CardContent>

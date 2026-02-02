@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { CreateBlockBtn } from "@/components/create-block-btn";
-import { BlocksGrid } from "@/components/blocks-grid";
+import { AdminDashboardClient } from "./dashboard-client";
 
 export default async function AdminPage() {
   const supabase = await createClient();
@@ -24,8 +24,8 @@ export default async function AdminPage() {
         <CreateBlockBtn />
       </div>
 
-      {/* GRID DE BLOQUES CON DRAG & DROP */}
-      <BlocksGrid initialBlocks={blocks || []} />
+      {/* Dashboard Client con selector de variantes */}
+      <AdminDashboardClient initialBlocks={blocks || []} />
     </div>
   )
 }

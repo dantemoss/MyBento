@@ -33,9 +33,10 @@ interface Block {
 
 interface BlocksGridProps {
   initialBlocks: Block[]
+  cardVariant?: "dark" | "silver" | "white"
 }
 
-export function BlocksGrid({ initialBlocks }: BlocksGridProps) {
+export function BlocksGrid({ initialBlocks, cardVariant = "dark" }: BlocksGridProps) {
   const [blocks, setBlocks] = useState(initialBlocks)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -95,7 +96,7 @@ export function BlocksGrid({ initialBlocks }: BlocksGridProps) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {blocks.map((block) => (
-          <StaticBlock key={block.id} block={block} />
+          <StaticBlock key={block.id} block={block} variant={cardVariant} />
         ))}
       </div>
     )
@@ -111,7 +112,7 @@ export function BlocksGrid({ initialBlocks }: BlocksGridProps) {
       <SortableContext items={blocks.map(b => b.id)} strategy={rectSortingStrategy}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {blocks.map((block) => (
-            <SortableBlock key={block.id} block={block} />
+            <SortableBlock key={block.id} block={block} variant={cardVariant} />
           ))}
         </div>
       </SortableContext>

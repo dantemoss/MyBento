@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MyBento",
-  description: "Linktree builder para devs",
+  title: "Bion",
+  description: "Links con alma para identidades digitales",
 };
 
 export default function RootLayout({

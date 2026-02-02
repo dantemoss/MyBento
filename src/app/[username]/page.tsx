@@ -24,23 +24,23 @@ export async function generateMetadata({
 
   if (!profile) {
     return {
-      title: "Usuario no encontrado | MyBento",
+      title: "Usuario no encontrado | Bion",
       description: "Este perfil no existe.",
     };
   }
 
   const displayName = profile.full_name || `@${username}`;
-  const description = `Mirá los links de ${displayName} en MyBento`;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mybento.vercel.app";
+  const description = `Mirá los links de ${displayName} en Bion`;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bion.vercel.app";
 
   return {
-    title: `${displayName} | MyBento`,
+    title: `${displayName} | Bion`,
     description,
     openGraph: {
-      title: `${displayName} | MyBento`,
+      title: `${displayName} | Bion`,
       description,
       url: `${siteUrl}/${username}`,
-      siteName: "MyBento",
+      siteName: "Bion",
       type: "profile",
       images: profile.avatar_url ? [
         {
@@ -53,7 +53,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary",
-      title: `${displayName} | MyBento`,
+      title: `${displayName} | Bion`,
       description,
       images: profile.avatar_url ? [profile.avatar_url] : [],
     },
@@ -111,7 +111,7 @@ export default async function PublicProfilePage({
 
       {/* FOOTER */}
       <footer className="mt-20 text-zinc-600 text-xs">
-        Hecho con <span className="text-white font-bold">MyBento</span>
+        Hecho con <span className="text-white font-bold">Bion</span>
       </footer>
     </div>
   );

@@ -27,7 +27,7 @@ export default async function OnboardingPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="h-12 w-12 bg-white rounded-xl mx-auto mb-4"></div>
-          <h1 className="text-2xl font-bold text-white">Bienvenido a MyBento</h1>
+          <h1 className="text-2xl font-bold text-white">Bienvenido a Bion</h1>
           <p className="text-zinc-400 mt-2">
             Elegí tu nombre de usuario para crear tu perfil público.
           </p>
