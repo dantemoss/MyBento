@@ -90,7 +90,7 @@ export function SortableBlock({ block, variant = "dark" }: SortableBlockProps) {
           onEdit={handleEdit}
           onDrag={() => {}}
           variant={variant}
-          className="h-[220px]"
+          className="h-[180px]"
         />
       </div>
     </div>

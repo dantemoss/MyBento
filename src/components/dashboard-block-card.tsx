@@ -225,17 +225,17 @@ export function DashboardBlockCard({
       </div>
 
       {/* Bottom-right: Large logo on bottom edge */}
-      <div className="absolute bottom-0 right-4 z-0">
+      <div className="absolute bottom-0 right-2 z-0">
         {/* Brand color glow */}
         <div
-          className="absolute inset-0 w-32 h-32 rounded-full blur-3xl opacity-20 group-hover:opacity-35 transition-opacity duration-300"
+          className="absolute inset-0 w-24 h-24 rounded-full blur-3xl opacity-20 group-hover:opacity-35 transition-opacity duration-300"
           style={{ backgroundColor: needsInvert ? "#ffffff" : brandColor }}
         />
         
         {/* Logo - larger and on bottom with smart color adaptation */}
         <div
           className={cn(
-            "relative w-44 h-44 flex items-center justify-center transition-transform duration-300 group-hover:scale-105",
+            "relative w-32 h-32 flex items-center justify-center transition-transform duration-300 group-hover:scale-105",
             needsInvert && "brightness-0 invert"
           )}
           style={{ color: brandColor }}
