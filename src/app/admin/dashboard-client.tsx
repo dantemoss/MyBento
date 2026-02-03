@@ -18,7 +18,7 @@ interface AdminDashboardClientProps {
 }
 
 export function AdminDashboardClient({ initialBlocks }: AdminDashboardClientProps) {
-  const [cardVariant, setCardVariant] = useState<"dark" | "silver" | "white">("dark")
+  const [cardVariant, setCardVariant] = useState<"dark" | "silver">("dark")
 
   return (
     <>

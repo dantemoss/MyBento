@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Settings, ExternalLink } from "lucide-react";
 import { QRCodeBtn } from "@/components/qr-code-btn";
 import { AdminSidebar } from "@/components/admin-sidebar";
+import { StripedPattern } from "@/components/magicui/striped-pattern";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
@@ -30,12 +31,20 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex relative overflow-hidden">
+      {/* Striped Pattern Background */}
+      <StripedPattern 
+        direction="right"
+        width={20}
+        height={20}
+        className="text-zinc-800/30 z-0"
+      />
+      
       {/* SIDEBAR */}
       <AdminSidebar />
 
       {/* CONTENIDO PRINCIPAL */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col relative z-10">
         {/* HEADER */}
         <header className="border-b border-zinc-800 bg-zinc-950/50 backdrop-blur-md sticky top-0 z-50">
           <div className="px-6 h-16 flex justify-between items-center">

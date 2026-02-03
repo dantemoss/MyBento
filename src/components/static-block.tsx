@@ -36,7 +36,7 @@ export function StaticBlock({ block, variant = "dark" }: StaticBlockProps) {
       clicks={block.clicks || 0}
       url={block.url || undefined}
       variant={variant}
-      className="h-[280px]"
+      className="h-[220px]"
     />
   )
 }

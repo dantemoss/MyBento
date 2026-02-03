@@ -3,8 +3,8 @@
 import { cn } from "@/lib/utils"
 
 interface CardVariantSelectorProps {
-  value: "dark" | "silver" | "white"
-  onChange: (variant: "dark" | "silver" | "white") => void
+  value: "dark" | "silver"
+  onChange: (variant: "dark" | "silver") => void
 }
 
 export function CardVariantSelector({ value, onChange }: CardVariantSelectorProps) {
@@ -17,12 +17,7 @@ export function CardVariantSelector({ value, onChange }: CardVariantSelectorProp
     {
       id: "silver" as const,
       name: "Silver",
-      preview: "bg-gradient-to-br from-zinc-100 via-zinc-50 to-zinc-100 border-zinc-300",
-    },
-    {
-      id: "white" as const,
-      name: "White",
-      preview: "bg-gradient-to-br from-white via-zinc-50 to-white border-zinc-200",
+      preview: "bg-gradient-to-br from-[#c0c0c0] via-[#d4d4d8] to-[#a8a8a8] border-zinc-400",
     },
   ]
 

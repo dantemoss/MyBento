@@ -33,7 +33,7 @@ interface Block {
 
 interface BlocksGridProps {
   initialBlocks: Block[]
-  cardVariant?: "dark" | "silver" | "white"
+  cardVariant?: "dark" | "silver"
 }
 
 export function BlocksGrid({ initialBlocks, cardVariant = "dark" }: BlocksGridProps) {
