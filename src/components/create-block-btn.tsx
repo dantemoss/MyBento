@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { createBlock } from "@/app/admin/actions"
 import { Button } from "@/components/ui/button"
+import { ShimmerButton } from "@/components/ui/shimmer-button"
 import {
   Dialog,
   DialogContent,
@@ -63,10 +64,14 @@ export function CreateBlockBtn() {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button className="bg-white text-black hover:bg-zinc-200 rounded-full font-medium">
+        <ShimmerButton
+          shimmerColor="#ffffff"
+          background="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+          className="shadow-2xl"
+        >
           <Plus className="w-4 h-4 mr-2" />
           Agregar Bloque
-        </Button>
+        </ShimmerButton>
       </DialogTrigger>
       
       <DialogContent className="sm:max-w-[425px] bg-zinc-950 border-zinc-800 text-zinc-100">
