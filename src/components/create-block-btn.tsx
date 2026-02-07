@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { createBlock } from "@/app/admin/actions"
 import { Button } from "@/components/ui/button"
 import { ShimmerButton } from "@/components/ui/shimmer-button"
@@ -18,9 +19,10 @@ import { Label } from "@/components/ui/label"
 import { Plus, Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { detectPlatform, getPlatformConfig } from "@/lib/platforms"
-import { PlatformIcon } from "@/components/icons"
+import { BrandIcon, isPlatformSupported, type PlatformKey } from "@/components/brand-icon"
 
 export function CreateBlockBtn() {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [url, setUrl] = useState("")
@@ -44,6 +46,8 @@ export function CreateBlockBtn() {
         setOpen(false)
         setUrl("")
         setBlockType("link")
+        // Forzar actualización de los datos
+        router.refresh()
       }
     } catch (error) {
       console.error("Error al crear el bloque:", error)
@@ -138,7 +142,17 @@ export function CreateBlockBtn() {
                     borderColor: platformConfig.color 
                   }}
                 >
-                  <PlatformIcon platform={detectedPlatform} className="w-4 h-4" />
+                  {isPlatformSupported(detectedPlatform) ? (
+                    <BrandIcon 
+                      platform={detectedPlatform as PlatformKey} 
+                      className="w-4 h-4 text-white" 
+                    />
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                    </svg>
+                  )}
                   <span className="text-sm text-zinc-300">
                     Detectado: <span className="font-medium text-white">{platformConfig.name}</span>
                   </span>

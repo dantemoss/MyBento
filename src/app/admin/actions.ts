@@ -65,14 +65,16 @@ export async function createBlock(formData: FormData) {
       : 0
 
     // 8. Guardar en Supabase
-    const { error } = await supabase.from('blocks').insert({
+    const { data: newBlock, error } = await supabase.from('blocks').insert({
       user_id: user.id,
       title: sanitizedTitle,
       url: sanitizedUrl,
       type: validatedData.type,
-      content: {}, // JSON vacío por ahora
+      content: {},
       position: nextPosition,
-    })
+      is_active: true,
+      is_highlighted: false,
+    }).select().single()
 
     if (error) {
       console.error('Error al crear bloque:', error)
@@ -178,7 +180,7 @@ export async function deleteBlock(blockId: string) {
   }
 }
 
-export async function updateBlock(blockId: string, data: { title: string; url: string; type: string }) {
+export async function updateBlock(blockId: string, data: { title: string; url: string; type: string; is_active?: boolean; is_highlighted?: boolean }) {
   const supabase = await createClient()
   
   try {
@@ -230,14 +232,25 @@ export async function updateBlock(blockId: string, data: { title: string; url: s
       return { error: 'Bloque no encontrado o no tienes permisos para actualizarlo' }
     }
 
-    // 8. Actualizar el bloque
+    // 8. Preparar datos a actualizar
+    const updates: Record<string, unknown> = {
+      title: sanitizedTitle,
+      url: sanitizedUrl,
+      type: validatedData.type,
+    }
+
+    // Agregar campos opcionales si están presentes
+    if (data.is_active !== undefined) {
+      updates.is_active = data.is_active
+    }
+    if (data.is_highlighted !== undefined) {
+      updates.is_highlighted = data.is_highlighted
+    }
+
+    // 9. Actualizar el bloque
     const { error: updateError } = await supabase
       .from('blocks')
-      .update({
-        title: sanitizedTitle,
-        url: sanitizedUrl,
-        type: validatedData.type,
-      })
+      .update(updates)
       .eq('id', blockId)
       .eq('user_id', user.id)
 
@@ -245,9 +258,10 @@ export async function updateBlock(blockId: string, data: { title: string; url: s
       console.error('Error al actualizar bloque:', updateError)
       return { error: 'Error al actualizar el bloque' }
     }
-
-    // 9. Refrescar la página
+    
+    // 10. Refrescar la página
     revalidatePath('/admin')
+    revalidatePath('/[username]', 'page')
     return { success: true }
   } catch (error) {
     console.error('Error inesperado al actualizar bloque:', error)

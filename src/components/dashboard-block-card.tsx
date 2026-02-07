@@ -11,6 +11,7 @@ interface DashboardBlockCardProps {
   brandColor: string
   platform?: string
   isActive?: boolean
+  isHighlighted?: boolean
   clicks?: number
   url?: string
   variant?: "dark" | "silver"
@@ -26,6 +27,7 @@ export function DashboardBlockCard({
   brandColor,
   platform,
   isActive = true,
+  isHighlighted = false,
   clicks = 0,
   url,
   variant = "dark",
@@ -89,9 +91,28 @@ export function DashboardBlockCard({
         variantStyles[variant],
         "shadow-[0_2px_8px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_8px_rgba(0,0,0,0.3)]",
         "border",
+        isHighlighted && "ring-2 ring-yellow-500/50 shadow-[0_0_30px_rgba(234,179,8,0.4)]",
         className
       )}
     >
+      {/* Efecto de brillo animado para bloques destacados */}
+      {isHighlighted && (
+        <motion.div
+          className="absolute inset-0 rounded-xl pointer-events-none"
+          animate={{
+            boxShadow: [
+              "inset 0 0 20px rgba(234, 179, 8, 0.3)",
+              "inset 0 0 40px rgba(234, 179, 8, 0.5)",
+              "inset 0 0 20px rgba(234, 179, 8, 0.3)",
+            ],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      )}
       {/* Inner highlight for depth */}
       <div 
         className={cn(

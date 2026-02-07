@@ -21,22 +21,16 @@ import { StaticBlock } from "./static-block"
 import { reorderBlocks } from "@/app/admin/actions"
 import { Plus } from "lucide-react"
 import { toast } from "sonner"
-
-interface Block {
-  id: string
-  title: string | null
-  url: string | null
-  type: string
-  clicks: number | null
-  position: number
-}
+import { cn } from "@/lib/utils"
+import type { Block } from "@/lib/types"
 
 interface BlocksGridProps {
   initialBlocks: Block[]
   cardVariant?: "dark" | "silver"
+  onBlockClick?: (block: Block) => void
 }
 
-export function BlocksGrid({ initialBlocks, cardVariant = "dark" }: BlocksGridProps) {
+export function BlocksGrid({ initialBlocks, cardVariant = "dark", onBlockClick }: BlocksGridProps) {
   const [blocks, setBlocks] = useState(initialBlocks)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -44,6 +38,11 @@ export function BlocksGrid({ initialBlocks, cardVariant = "dark" }: BlocksGridPr
   useEffect(() => {
     setIsMounted(true)
   }, [])
+  
+  // Actualizar blocks cuando initialBlocks cambie
+  useEffect(() => {
+    setBlocks(initialBlocks)
+  }, [initialBlocks])
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -94,9 +93,18 @@ export function BlocksGrid({ initialBlocks, cardVariant = "dark" }: BlocksGridPr
   // Renderizar versión estática en el servidor y primera carga
   if (!isMounted) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-fr">
         {blocks.map((block) => (
-          <StaticBlock key={block.id} block={block} variant={cardVariant} />
+          <div
+            key={block.id}
+            className={cn(
+              "transition-all duration-300",
+              block.is_highlighted && "lg:col-span-2",
+              !block.is_active && "opacity-50 grayscale"
+            )}
+          >
+            <StaticBlock block={block} variant={cardVariant} onBlockClick={onBlockClick} />
+          </div>
         ))}
       </div>
     )
@@ -110,9 +118,18 @@ export function BlocksGrid({ initialBlocks, cardVariant = "dark" }: BlocksGridPr
       onDragEnd={handleDragEnd}
     >
       <SortableContext items={blocks.map(b => b.id)} strategy={rectSortingStrategy}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-fr">
           {blocks.map((block) => (
-            <SortableBlock key={block.id} block={block} variant={cardVariant} />
+            <div
+              key={block.id}
+              className={cn(
+                "transition-all duration-300",
+                block.is_highlighted && "lg:col-span-2",
+                !block.is_active && "opacity-50 grayscale"
+              )}
+            >
+              <SortableBlock block={block} variant={cardVariant} onBlockClick={onBlockClick} />
+            </div>
           ))}
         </div>
       </SortableContext>

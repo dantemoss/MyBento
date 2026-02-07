@@ -7,7 +7,7 @@ export default async function AdminPage() {
   const { data: { user } } = await supabase.auth.getUser();
 
   // 1. Buscamos los bloques del usuario
-  const { data: blocks } = await supabase
+  const { data: blocks, error } = await supabase
     .from("blocks")
     .select("*")
     .eq("user_id", user?.id)
@@ -23,6 +23,13 @@ export default async function AdminPage() {
         </div>
         <CreateBlockBtn />
       </div>
+
+      {/* Error message si hay problema */}
+      {error && (
+        <div className="p-4 bg-red-900/20 border border-red-500 rounded-lg text-red-400">
+          <strong>Error al cargar bloques:</strong> {error.message}
+        </div>
+      )}
 
       {/* Dashboard Client con selector de variantes */}
       <AdminDashboardClient initialBlocks={blocks || []} />

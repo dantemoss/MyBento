@@ -2,28 +2,22 @@
 
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { PlatformIcon } from "@/components/icons"
+import { BrandIcon, getBrandColor, isPlatformSupported, type PlatformKey } from "@/components/brand-icon"
 import { detectPlatform, getPlatformConfig, type Platform } from "@/lib/platforms"
 import { EditBlockBtn } from "./edit-block-btn"
 import { DeleteBlockBtn } from "./delete-block-btn"
 import { DashboardBlockCard } from "./dashboard-block-card"
 import { incrementClick } from "@/app/admin/actions"
 import { cn } from "@/lib/utils"
-
-interface Block {
-  id: string
-  title: string | null
-  url: string | null
-  type: string
-  clicks: number | null
-}
+import type { Block } from "@/lib/types"
 
 interface SortableBlockProps {
   block: Block
   variant?: "dark" | "silver"
+  onBlockClick?: (block: Block) => void
 }
 
-export function SortableBlock({ block, variant = "dark" }: SortableBlockProps) {
+export function SortableBlock({ block, variant = "dark", onBlockClick }: SortableBlockProps) {
   const {
     attributes,
     listeners,
@@ -42,9 +36,14 @@ export function SortableBlock({ block, variant = "dark" }: SortableBlockProps) {
 
   const platform = block.url ? (detectPlatform(block.url) as Platform) : "link"
   const config = getPlatformConfig(platform)
+  
+  // Usar BrandIcon si la plataforma está soportada
+  const platformKey = platform as string
+  const useBrandIcon = isPlatformSupported(platformKey)
+  const brandColor = useBrandIcon ? getBrandColor(platformKey as PlatformKey) : config.color
 
   const handleEdit = () => {
-    // Trigger edit modal
+    onBlockClick?.(block)
   }
 
   return (
@@ -56,35 +55,29 @@ export function SortableBlock({ block, variant = "dark" }: SortableBlockProps) {
         isDragging && "ring-2 ring-zinc-500 shadow-lg scale-105"
       )}
     >
-      {/* Controles de edición flotantes */}
-      <div className="absolute top-3 right-3 z-30 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <EditBlockBtn
-          block={{
-            id: block.id,
-            title: block.title || "",
-            url: block.url || "",
-            type: block.type,
-          }}
-        />
-        <DeleteBlockBtn
-          blockId={block.id}
-          blockTitle={block.title || "Sin título"}
-        />
-      </div>
-
       {/* Dashboard Block Card */}
-      <div {...attributes} {...listeners}>
+      <div {...attributes} {...listeners} onClick={handleEdit}>
         <DashboardBlockCard
           title={block.title || "Sin título"}
           platform={config.name}
           icon={
-            <PlatformIcon 
-              platform={platform} 
-              className="w-full h-full"
-            />
+            useBrandIcon ? (
+              <BrandIcon 
+                platform={platformKey as PlatformKey} 
+                className="w-full h-full"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-zinc-400">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-full h-full">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                </svg>
+              </div>
+            )
           }
-          brandColor={config.color || "#71717a"}
-          isActive={true}
+          brandColor={brandColor || "#71717a"}
+          isActive={block.is_active}
+          isHighlighted={block.is_highlighted}
           clicks={block.clicks || 0}
           url={block.url || undefined}
           onEdit={handleEdit}

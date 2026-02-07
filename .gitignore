@@ -41,12 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # security documentation (contains sensitive info)
-SECURITY.md
-SECURITY_NOTES.md
-*.security.md
-
-
-PROFILE_SETTINGS_UPDATE.md
+DOCS.md
 # cursorrules
 .cursorrules
 grilla.md

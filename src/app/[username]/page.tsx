@@ -86,6 +86,9 @@ export default async function PublicProfilePage({
     .eq("user_id", profile.id)
     .order("position", { ascending: true });
 
+  // Filtrar solo bloques activos
+  const activeBlocks = blocks?.filter(b => b.is_active !== false) || []
+
   // Obtener layout del perfil (si existe) o usar el default
   const layout = (profile.layout as LayoutType) || defaultLayout
 
@@ -107,7 +110,7 @@ export default async function PublicProfilePage({
       </div>
 
       {/* BLOQUES CON LAYOUT DINÁMICO */}
-      <ProfileLayout layout={layout} blocks={blocks || []} />
+      <ProfileLayout layout={layout} blocks={activeBlocks} />
 
       {/* FOOTER */}
       <footer className="mt-20 text-zinc-600 text-xs">

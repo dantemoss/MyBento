@@ -22,6 +22,42 @@ export type Platform =
   | 'substack'
   | 'patreon'
   | 'buymeacoffee'
+  | 'reddit'
+  | 'bluesky'
+  | 'threads'
+  | 'snapchat'
+  | 'pinterest'
+  | 'vimeo'
+  | 'soundcloud'
+  | 'bandcamp'
+  | 'applemusic'
+  | 'deezer'
+  | 'tidal'
+  | 'mastodon'
+  | 'producthunt'
+  | 'stackoverflow'
+  | 'codepen'
+  | 'gitlab'
+  | 'bitbucket'
+  | 'devto'
+  | 'hashnode'
+  | 'polywork'
+  | 'linktree'
+  | 'beacons'
+  | 'carrd'
+  | 'kofi'
+  | 'gumroad'
+  | 'etsy'
+  | 'shopify'
+  | 'kickstarter'
+  | 'indiegogo'
+  | 'onlyfans'
+  | 'fansly'
+  | 'twilio'
+  | 'slack'
+  | 'zoom'
+  | 'calendly'
+  | 'cal'
   | 'link'    // fallback genérico
   | 'header'  // título de sección
 
@@ -173,6 +209,258 @@ export const platforms: Record<Platform, PlatformConfig> = {
     color: '#FFDD00',
     hoverColor: '#E6C700',
     bgColor: 'rgba(255, 221, 0, 0.1)',
+  },
+  reddit: {
+    name: 'Reddit',
+    patterns: ['reddit.com', 'redd.it'],
+    color: '#FF4500',
+    hoverColor: '#E63E00',
+    bgColor: 'rgba(255, 69, 0, 0.1)',
+  },
+  bluesky: {
+    name: 'Bluesky',
+    patterns: ['bsky.app', 'bsky.social'],
+    color: '#1185FE',
+    hoverColor: '#0A6FE0',
+    bgColor: 'rgba(17, 133, 254, 0.1)',
+  },
+  threads: {
+    name: 'Threads',
+    patterns: ['threads.net'],
+    color: '#000000',
+    hoverColor: '#333333',
+    bgColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  snapchat: {
+    name: 'Snapchat',
+    patterns: ['snapchat.com', 'snap.com'],
+    color: '#FFFC00',
+    hoverColor: '#E6E300',
+    bgColor: 'rgba(255, 252, 0, 0.1)',
+  },
+  pinterest: {
+    name: 'Pinterest',
+    patterns: ['pinterest.com', 'pin.it'],
+    color: '#E60023',
+    hoverColor: '#CC001F',
+    bgColor: 'rgba(230, 0, 35, 0.1)',
+  },
+  vimeo: {
+    name: 'Vimeo',
+    patterns: ['vimeo.com'],
+    color: '#1AB7EA',
+    hoverColor: '#0E9FD1',
+    bgColor: 'rgba(26, 183, 234, 0.1)',
+  },
+  soundcloud: {
+    name: 'SoundCloud',
+    patterns: ['soundcloud.com'],
+    color: '#FF5500',
+    hoverColor: '#E64D00',
+    bgColor: 'rgba(255, 85, 0, 0.1)',
+  },
+  bandcamp: {
+    name: 'Bandcamp',
+    patterns: ['bandcamp.com'],
+    color: '#629AA9',
+    hoverColor: '#528797',
+    bgColor: 'rgba(98, 154, 169, 0.1)',
+  },
+  applemusic: {
+    name: 'Apple Music',
+    patterns: ['music.apple.com'],
+    color: '#FA243C',
+    hoverColor: '#E11530',
+    bgColor: 'rgba(250, 36, 60, 0.1)',
+  },
+  deezer: {
+    name: 'Deezer',
+    patterns: ['deezer.com'],
+    color: '#FF0092',
+    hoverColor: '#E60083',
+    bgColor: 'rgba(255, 0, 146, 0.1)',
+  },
+  tidal: {
+    name: 'Tidal',
+    patterns: ['tidal.com'],
+    color: '#000000',
+    hoverColor: '#333333',
+    bgColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  mastodon: {
+    name: 'Mastodon',
+    patterns: ['mastodon.social', 'mastodon.online', 'mas.to'],
+    color: '#6364FF',
+    hoverColor: '#4F50E6',
+    bgColor: 'rgba(99, 100, 255, 0.1)',
+  },
+  producthunt: {
+    name: 'Product Hunt',
+    patterns: ['producthunt.com'],
+    color: '#DA552F',
+    hoverColor: '#C74826',
+    bgColor: 'rgba(218, 85, 47, 0.1)',
+  },
+  stackoverflow: {
+    name: 'Stack Overflow',
+    patterns: ['stackoverflow.com'],
+    color: '#F58025',
+    hoverColor: '#DC7320',
+    bgColor: 'rgba(245, 128, 37, 0.1)',
+  },
+  codepen: {
+    name: 'CodePen',
+    patterns: ['codepen.io'],
+    color: '#000000',
+    hoverColor: '#333333',
+    bgColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  gitlab: {
+    name: 'GitLab',
+    patterns: ['gitlab.com'],
+    color: '#FC6D26',
+    hoverColor: '#E35E1F',
+    bgColor: 'rgba(252, 109, 38, 0.1)',
+  },
+  bitbucket: {
+    name: 'Bitbucket',
+    patterns: ['bitbucket.org'],
+    color: '#0052CC',
+    hoverColor: '#0043A8',
+    bgColor: 'rgba(0, 82, 204, 0.1)',
+  },
+  devto: {
+    name: 'DEV',
+    patterns: ['dev.to'],
+    color: '#0A0A0A',
+    hoverColor: '#333333',
+    bgColor: 'rgba(10, 10, 10, 0.1)',
+  },
+  hashnode: {
+    name: 'Hashnode',
+    patterns: ['hashnode.com', 'hashnode.dev'],
+    color: '#2962FF',
+    hoverColor: '#1E4FE6',
+    bgColor: 'rgba(41, 98, 255, 0.1)',
+  },
+  polywork: {
+    name: 'Polywork',
+    patterns: ['polywork.com', 'poly.work'],
+    color: '#6366F1',
+    hoverColor: '#4F52D8',
+    bgColor: 'rgba(99, 102, 241, 0.1)',
+  },
+  linktree: {
+    name: 'Linktree',
+    patterns: ['linktr.ee'],
+    color: '#43E55E',
+    hoverColor: '#34CC4B',
+    bgColor: 'rgba(67, 229, 94, 0.1)',
+  },
+  beacons: {
+    name: 'Beacons',
+    patterns: ['beacons.ai'],
+    color: '#6C5CE7',
+    hoverColor: '#5849CE',
+    bgColor: 'rgba(108, 92, 231, 0.1)',
+  },
+  carrd: {
+    name: 'Carrd',
+    patterns: ['carrd.co'],
+    color: '#7C3AED',
+    hoverColor: '#6929D4',
+    bgColor: 'rgba(124, 58, 237, 0.1)',
+  },
+  kofi: {
+    name: 'Ko-fi',
+    patterns: ['ko-fi.com'],
+    color: '#FF5E5B',
+    hoverColor: '#E64D4A',
+    bgColor: 'rgba(255, 94, 91, 0.1)',
+  },
+  gumroad: {
+    name: 'Gumroad',
+    patterns: ['gumroad.com', 'gum.co'],
+    color: '#FF90E8',
+    hoverColor: '#E67DD0',
+    bgColor: 'rgba(255, 144, 232, 0.1)',
+  },
+  etsy: {
+    name: 'Etsy',
+    patterns: ['etsy.com'],
+    color: '#F1641E',
+    hoverColor: '#D8561A',
+    bgColor: 'rgba(241, 100, 30, 0.1)',
+  },
+  shopify: {
+    name: 'Shopify',
+    patterns: ['shopify.com', 'myshopify.com'],
+    color: '#96BF48',
+    hoverColor: '#7FA63A',
+    bgColor: 'rgba(150, 191, 72, 0.1)',
+  },
+  kickstarter: {
+    name: 'Kickstarter',
+    patterns: ['kickstarter.com'],
+    color: '#05CE78',
+    hoverColor: '#04B566',
+    bgColor: 'rgba(5, 206, 120, 0.1)',
+  },
+  indiegogo: {
+    name: 'Indiegogo',
+    patterns: ['indiegogo.com'],
+    color: '#EB1478',
+    hoverColor: '#D20F68',
+    bgColor: 'rgba(235, 20, 120, 0.1)',
+  },
+  onlyfans: {
+    name: 'OnlyFans',
+    patterns: ['onlyfans.com'],
+    color: '#00AFF0',
+    hoverColor: '#0096D7',
+    bgColor: 'rgba(0, 175, 240, 0.1)',
+  },
+  fansly: {
+    name: 'Fansly',
+    patterns: ['fansly.com'],
+    color: '#0091FF',
+    hoverColor: '#0078E6',
+    bgColor: 'rgba(0, 145, 255, 0.1)',
+  },
+  twilio: {
+    name: 'Twilio',
+    patterns: ['twilio.com'],
+    color: '#F22F46',
+    hoverColor: '#D9263D',
+    bgColor: 'rgba(242, 47, 70, 0.1)',
+  },
+  slack: {
+    name: 'Slack',
+    patterns: ['slack.com'],
+    color: '#4A154B',
+    hoverColor: '#3A0F3C',
+    bgColor: 'rgba(74, 21, 75, 0.1)',
+  },
+  zoom: {
+    name: 'Zoom',
+    patterns: ['zoom.us', 'zoom.com'],
+    color: '#2D8CFF',
+    hoverColor: '#1A7AE6',
+    bgColor: 'rgba(45, 140, 255, 0.1)',
+  },
+  calendly: {
+    name: 'Calendly',
+    patterns: ['calendly.com'],
+    color: '#006BFF',
+    hoverColor: '#0058E6',
+    bgColor: 'rgba(0, 107, 255, 0.1)',
+  },
+  cal: {
+    name: 'Cal.com',
+    patterns: ['cal.com'],
+    color: '#292929',
+    hoverColor: '#1A1A1A',
+    bgColor: 'rgba(41, 41, 41, 0.1)',
   },
   link: {
     name: 'Link',
