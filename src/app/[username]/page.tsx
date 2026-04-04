@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
 import { PublicBentoGrid } from "@/components/public-profile/public-bento-grid";
 import { ProfileAvatarWithSpinningText } from "@/components/public-profile/profile-avatar-with-spinning-text";
+import { ProfileBackground } from "@/components/public-profile/profile-background";
 import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
@@ -89,31 +90,36 @@ export default async function PublicProfilePage({
   const activeBlocks = blocks?.filter(b => b.is_active !== false) || []
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col items-center py-12 sm:py-16 px-4 sm:px-6">
-      
-      {/* HEADER DEL PERFIL: avatar con texto giratorio opcional */}
-      <div className="flex flex-col items-center gap-4 mb-10 text-center animate-in fade-in zoom-in duration-500">
-        <ProfileAvatarWithSpinningText
-          avatarUrl={profile.avatar_url}
-          fullName={profile.full_name}
-          username={username}
-          spinningTextEnabled={profile.spinning_text_enabled === true}
-          spinningTextSet={profile.spinning_text_set}
-          avatarPosition={profile.avatar_position}
-        />
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold tracking-tight">{profile.full_name || username}</h1>
-          <p className="text-zinc-500 text-sm font-mono">@{username}</p>
+    <ProfileBackground
+      backgroundType={profile.background_type ?? null}
+      backgroundConfig={profile.background_config ?? null}
+    >
+      <div className="text-zinc-100 flex flex-col items-center py-12 sm:py-16 px-4 sm:px-6">
+        
+        {/* HEADER DEL PERFIL: avatar con texto giratorio opcional */}
+        <div className="flex flex-col items-center gap-4 mb-10 text-center animate-in fade-in zoom-in duration-500">
+          <ProfileAvatarWithSpinningText
+            avatarUrl={profile.avatar_url}
+            fullName={profile.full_name}
+            username={username}
+            spinningTextEnabled={profile.spinning_text_enabled === true}
+            spinningTextSet={profile.spinning_text_set}
+            avatarPosition={profile.avatar_position}
+          />
+          <div className="space-y-1">
+            <h1 className="text-2xl font-bold tracking-tight">{profile.full_name || username}</h1>
+            <p className="text-zinc-500 text-sm font-mono">@{username}</p>
+          </div>
         </div>
+
+        {/* BENTO GRID CON RICH MEDIA */}
+        <PublicBentoGrid blocks={activeBlocks} />
+
+        {/* FOOTER */}
+        <footer className="mt-20 text-zinc-600 text-xs">
+          Hecho con <span className="text-white font-bold">Bion</span>
+        </footer>
       </div>
-
-      {/* BENTO GRID CON RICH MEDIA */}
-      <PublicBentoGrid blocks={activeBlocks} />
-
-      {/* FOOTER */}
-      <footer className="mt-20 text-zinc-600 text-xs">
-        Hecho con <span className="text-white font-bold">Bion</span>
-      </footer>
-    </div>
+    </ProfileBackground>
   );
 }

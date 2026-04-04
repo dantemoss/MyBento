@@ -43,6 +43,8 @@ export interface Profile {
   spinning_text_enabled: boolean;
   spinning_text_set: string | null;
   avatar_position: string | null;
+  background_type: string | null;
+  background_config: string | null;
   created_at: string;
   updated_at: string;
 }

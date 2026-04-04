@@ -48,7 +48,7 @@ function AdminSidebarContent() {
       label: "Temas",
       href: "/admin/themes",
       icon: (
-        <Palette className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0 opacity-50" />
+        <Palette className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
       ),
     },
     {
